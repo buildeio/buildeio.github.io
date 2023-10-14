@@ -1,34 +1,249 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Moh Moh</title>
+	<link rel="manifest" href="/manifest.json">
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>
-            Builde.IO
-        </title>
-        <script src = "./assets/gameLoader.js" defer></script>
-        <link rel = "stylesheet" href = "./assets/styles.css">
-    </head>
-    <body>
-        <canvas id = "gameCanvasN">
 
-        </canvas>
-        <div id = "menu">
-            <p id = "gameTitle">
-                Builde.IO
-            </p>
-            <div id = "blockEnterGame">
-                <input type = "name" value = "unknown" id = "nameInput"><br>
-                <button id = "enterGameButton">
-                    Enter Game
-                </button>
-            </div>
-            <div id = "blockGameControls">
+	<link rel="shortcut icon" type="image/png" href="https://media.discordapp.net/attachments/1143652766246506537/1159830025936318484/fa9ba064149c20b6ab70c7440a9b905b.png?ex=653272e2&is=651ffde2&hm=3520ece2be4928aecb2d0d86070f36539068dad03cebac54614d939c8655c385&"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="description" content="MohMoh.io is a brand new Survival IO Game. Build and Survive with your friends">
+	<meta name="keywords" content="game,games,gaming,online,io,multiplayer,moomoo,village,farm">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="pragma" content="no-cache">
+	<link rel="stylesheet" href="css/main.css" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Hammersmith+One" rel="stylesheet">
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-69264675-3', 'auto');
+		ga('send', 'pageview');
+	</script>
 
-            </div>
-            <!-- Fuck adblockers -->
-            <div id = "blockGameA\x00d\x00s">
+	<!-- <script>
+		window.twttr = (function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0],
+					t = window.twttr || {};
+			if (d.getElementById(id)) return t;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "https://platform.twitter.com/widgets.js";
+			fjs.parentNode.insertBefore(js, fjs);
+			t._e = [];
+			t.ready = function(f) {
+				t._e.push(f);
+			};
+			return t;
+		}(document, "script", "twitter-wjs"));
+	</script> -->
 
-            </div>
-        </div>
-    </body>
+	<!-- SERVER LIST -->
+	<script src="/serverData.js"></script>
+</head>
+<body>
+
+<!-- SCRIPTS -->
+<!-- <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.core.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+<script src="https://apis.google.com/js/platform.js"></script>
+
+<!-- PLAYWIRE -->
+<!-- <div id="my-content" style="display: none;"></div> -->
+
+<!-- CONFIRM CLOSE PAGE -->
+<!-- removed because i dont want to get oneshotted by mom -->
+
+<!-- ERROR NOTIFICATION -->
+<div id="errorNotification" class="menuCard" style="display: none">
+	<div>It looks like MohMoh ran in to a problem. Please try <a target="_blank" href="https://www.computerhope.com/issues/ch001411.htm">disabling all of your browser extensions</a> and reloading the page.</div>
+	<div style="text-align: center"><a onclick="errorNotification.style.display = 'none'" style="cursor:pointer">Hide</a></div>
+</div>
+
+<!-- SHUTDOWN NOTICE -->
+<div id="shutdownDisplay" hidden></div>
+
+<!-- MAIN MENU -->
+<div id="mainMenu">
+	<div id="menuContainer">
+
+		<!-- GAME NAME -->
+		<div id="gameName">MOHMOH</div>
+
+		<!-- LOADING TEXT -->
+		<div id="loadingText">DONT TAKE DOWN THE GAME</div>
+
+		<!-- MENU CARDS -->
+		<div id="menuCardHolder" style="display:none;">
+			<div style="display:inline-block;">
+				<div class="menuCard" id="setupCard">
+					<input type="text" id="nameInput" placeholder="Your Name" maxlength="15" value="unknown"></input>
+					<div id="enterGame" class="menuButton"><span>Play</span></div>
+					<div id="mobileDownloadButtonContainer">
+						<a class="downloadBadge" href="https://itunes.apple.com/us/app/moomoo-io-mobile/id1236581367?ls=1&mt=8" target="_blank"></a>
+						<a class="downloadBadge" href="https://play.google.com/store/apps/details?id=com.yendis.moomoo_mobile" target="_blank"></a>
+					</div>
+				</div>
+				<div id="promoImgHolder" class="menuCard" style="display:block;margin-top:16px;padding-bottom:12px;" id="setupCard">
+                                Devlog:<hr>
+					1.0 - Fixed major bugs<br>
+				</div>
+			</div>
+			<div id="rightCardHolder">
+				<div class="menuCard" id="guideCard">
+					<div class="menuHeader">Servers</div>
+					<select id="serverBrowser"></select>
+					<div id="altServer"></div>
+					<div class="menuHeader" style="margin-top:10px">Select Color</div>
+					<div id="skinColorHolder"></div>
+					<div class="menuHeader" style="margin-top:10px">How To Play</div>
+					<div class="menuText">Collect resources around the map to build a village.
+						Your Windmills generate gold over time. But make sure to protect them from other players.</div>
+					<div class="menuHeader">Controls</div>
+					<div id="desktopInstructions" class="menuText">
+						Movement: W, A, S, D<br/>
+						Look: Mouse<br/>
+						Gather/Attack: Mouse or Space<br/>
+						Auto Attack: E<br/>
+						Select Item: 1-9 or Click<br/>
+						Quick Select Food: Q<br/>
+						Lock Rotation: X<br/>
+						Ping Minimap: R<br/>
+						Add Map Marker: C<br/>
+						Chat: Enter Key<br/>
+						Close Windows: ESC
+					</div>
+					<div id="mobileInstructions" class="menuText">
+						Movement: Drag on left side of screen<br/>
+						Gather/Attack: Drag on right side of screen<br/>
+						Select Item: Touch item at bottom<br/>
+						Ping Minimap: Touch map<br/>
+					</div>
+					<div class="menuHeader">Settings</div>
+					<div class="settingRadio"><input id="nativeResolution" type="checkbox" /> Use Native Resolution</div>
+					<div class="settingRadio"><input id="showPing" type="checkbox" /> Show Ping</div>
+					<div id="smallLinks">
+						<div class="menuHeader">Links</div>
+						<div class="menuText">
+							<a href="./docs/versions.txt" target="_blank" class="menuLink">v1.6.9</a> |
+						</div>
+					</div>
+					<div class="menuText">
+						Created by <a href="https://discord.gg/ZQ6xVzMXYx/" target="_blank" class="menuLink">MohMoh team</a>
+					</div>
+				</div>
+				<!-- <div id="downloadButtonContainer" class="menuCard">
+                    <a class="downloadBadge" href="https://itunes.apple.com/us/app/moomoo-io-mobile/id1236581367?ls=1&mt=8" target="_blank"><img src="./img/badges/ios.svg"></a></img>
+                    <a class="downloadBadge" href="https://play.google.com/store/apps/details?id=com.yendis.moomoo_mobile" target="_blank"><img src="./img/badges/android.png"></img></a>
+                </div> -->
+			</div>
+		</div>
+	</div>
+
+	<!-- SETTINGS -->
+	<div id="settingsButton" class="ytLink">
+		<i class="material-icons" style="font-size:30px;vertical-align:middle">&#xE8B8;</i>
+		<span>Settings</span>
+	</div>
+
+	<!-- PARTY INTO -->
+	<div id="partyButton" class="inParty"><span></span>
+		<i class="material-icons" style="font-size:30px;vertical-align:middle">&#xE8D3;</i>
+	</div>
+
+	<!-- JOIN PARTY -->
+	<div id="joinPartyButton" class="ytLink"><span>Join Party</span>
+		<i class="material-icons" style="font-size:30px;vertical-align:middle">&#xE0DA;</i>
+	</div>
+
+	<!-- PING -->
+	<div id="pingDisplay" hidden>Not connected</div>
+
+	<!-- YOUTUBER OF THE DAY -->
+	<div id="youtuberOf">
+		People which I like:
+		<div class="spanLink" id="featuredYoutube">
+		</div>
+	</div>
+
+</div>
+
+<!-- DEATH TEXT -->
+<div id="diedText">YOU DIED</div>
+
+<!-- GAME UI -->
+<div id="gameUI" style="display: none;">
+	<div id="chatHolder" style="display:none;">
+		<input id="chatBox" type="text" placeholder="Enter Message" maxlength="30"></input>
+	</div>
+	<div id="upgradeHolder"></div>
+	<div id="upgradeCounter"></div>
+	<div id="ageText"></div>
+	<div id="ageBarContainer">
+		<div id="ageBar">
+			<div id="ageBarBody"></div>
+		</div>
+	</div>
+	<div id="topInfoHolder">
+		<div id="leaderboard">
+			Leaderboard
+			<div id="leaderboardData"></div>
+		</div>
+		<div></div>
+		<div id="killCounter" class="resourceDisplay"></div>
+	</div>
+	<div id="itemInfoHolder" class="uiElement">
+	</div>
+	<div id="resDisplay">
+		<div id="foodDisplay" class="resourceDisplay"></div>
+		<div id="woodDisplay" class="resourceDisplay"></div>
+		<div id="stoneDisplay" class="resourceDisplay"></div>
+		<div id="scoreDisplay" class="resourceDisplay"></div>
+	</div>
+	`<div id="actionBar"></div>`
+	<div id="noticationDisplay" style="display:none"></div>
+	<div id="allianceButton" class="uiElement gameButton">
+		<i class="material-icons" style="font-size:40px;vertical-align:middle">&#xE8D3;</i>
+	</div>
+	<div id="storeButton" class="uiElement gameButton">
+		<i class="material-icons" style="font-size:40px;vertical-align:middle">&#xE8D1;</i>
+	</div>
+	<div id="chatButton" class="uiElement gameButton">
+		<i class="material-icons" style="font-size:40px;vertical-align:middle">&#xE8AF;</i>
+	</div>
+	<canvas id="mapDisplay">
+	</canvas>
+	<div id="storeMenu">
+		<div style="padding-bottom:15px">
+			<div class="storeTab" style="margin-right:10px" onclick="changeStoreIndex(0)">Hats</div>
+			<div class="storeTab" onclick="changeStoreIndex(1)">Accessories</div>
+		</div>
+		<div id="storeHolder">
+		</div>
+	</div>
+	<div id="allianceMenu">
+		<div id="allianceHolder"></div>
+		<div id="allianceManager"></div>
+	</div>
+</div>
+
+<!-- GAME CANVAS -->
+<canvas id="gameCanvas"></canvas>
+
+<!-- LOAD SCRIPTS -->
+<div id='cdm-zone-end'></div>
+
+<!-- INIT SCRIPT --> 
+<script src="fixbundle.js"></script>
+<script src="bundle.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=captchaCallback&render=6LfCWRQnAAAAAHzMhU0nPYcGyTEyBgksQ565guOz"></script>
+</body>
 </html>
